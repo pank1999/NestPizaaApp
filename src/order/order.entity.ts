@@ -1,8 +1,8 @@
 import { Table, Column, Model, DataType, PrimaryKey } from 'sequelize-typescript';
-import { IngredientType } from 'src/interface/Ingredient';
+import { IngredientType, itemType } from 'src/interface/Ingredient';
 
 @Table
-export class Ingredient extends Model<Ingredient> implements IngredientType {
+export class Order extends Model<Order> implements Order{
 
 // @PrimaryKey
 // @Column({
@@ -11,27 +11,29 @@ export class Ingredient extends Model<Ingredient> implements IngredientType {
 // })    
 // id:number
 
-@Column({
-    type:DataType.STRING,
-    allowNull:false
-})
-name:string
 
 @Column({
     type:DataType.INTEGER,
     allowNull:false
 })
-price:number
+userId:number
+
+@Column({
+    type:DataType.INTEGER,
+    allowNull:false
+})
+totalPrice:number
+
+@Column({
+    type:DataType.ARRAY(DataType.JSON),
+    allowNull:false
+})
+items:itemType[]
 
 @Column({
     type:DataType.STRING,
     allowNull:false
 })
-img:string
+status:string
 
-@Column({
-    type:DataType.BOOLEAN,
-    allowNull:false
-})
-isSelected:boolean
 }

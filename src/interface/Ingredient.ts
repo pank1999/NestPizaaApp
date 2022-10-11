@@ -1,5 +1,5 @@
 export interface IngredientType{
-    id:number;
+    // id:number;
     name: string;
     price:number;
     img:string;
@@ -7,9 +7,13 @@ export interface IngredientType{
 } 
 
 export const IngredientsColumn={
-    id:'id',
+    // id:'id',
     name:'name',
     price:'price',
     img:'img',
     isSelected:'isSelected'
 }
+
+export interface itemType{
+    pizza:IngredientType[]
+  }
