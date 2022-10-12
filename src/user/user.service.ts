@@ -15,8 +15,11 @@ export class UserService {
     constructor(@Inject(forwardRef(() => USER_REPOSITORY)) private readonly userRepository: typeof User) { }
 
     async create(user: UserDto): Promise<User> {
-        console.log(user);
-        return await this.userRepository.create<User>(user);
+        console.log("user service",user);
+        const createdUser =await this.userRepository.create<User>(user);
+        console.log("created user",createdUser);
+        return createdUser;
+        
     }
 
     async findOneByEmail(loginData:LoginType){
