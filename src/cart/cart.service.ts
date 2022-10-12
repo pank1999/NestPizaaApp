@@ -10,8 +10,9 @@ export class CartService {
     async create(cartData: CartDto): Promise<Cart> {
         return await this.cartRepository.create<Cart>(cartData);
     }
-    async findByUserId(userId: number): Promise<Cart> {
-        return await this.cartRepository.findOne<Cart>({ where: { userId } });
+    async findByUserId(userId: number): Promise<Cart[]> {
+        console.log(userId);
+        return await this.cartRepository.findAll<Cart>({ where: { userId } });
     }
     async findAllIngredient(): Promise<Cart[]>{
         return await this.cartRepository.findAll();   

@@ -8,12 +8,18 @@ export class CartController {
      
     //get cart by user
     @Get('/:userId')
-    getUserCart(@Param() userId:number){
-        this.cartService.findByUserId(userId);
+    getUserCart(@Param('userId') userId:number){
+        console.log(userId);
+        return this.cartService.findByUserId(userId);
+    } 
+
+    @Get()
+    getCart(){
+       return this.cartService.findAllIngredient();
     }
 
     //add Pizza to cart
-    @Post()
+    @Post("/addPizza")
     addPizzaToCart(@Body() cartData:CartDto){
         this.cartService.create(cartData);
     }

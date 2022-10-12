@@ -1,3 +1,4 @@
+import { IntegerDataType, json } from 'sequelize';
 import { Table, Column, Model, DataType, HasMany } from 'sequelize-typescript';
 import { Ingredient } from 'src/ingredient/Ingredient.entity';
 import { IngredientsColumn, IngredientType } from 'src/interface/Ingredient';
@@ -23,7 +24,15 @@ TotalPrice:number
 })
 IngQuantity:number
 
-@HasMany(()=> Ingredient,{foreignKey:IngredientsColumn.id})
-Ingredients:Ingredient
+@Column({
+    type:DataType.ARRAY(DataType.JSON),
+    allowNull:false
+})
+IngArray:Array<IngredientType>
+
+
+
+// @HasMany(()=> Ingredient,{foreignKey:IngredientsColumn.id})
+// Ingredients:Ingredient
 
 }
