@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Query } from '@nestjs/common';
 import { CartService } from './cart.service';
 import { CartDto } from './dto/cart.dto';
 
@@ -19,8 +19,21 @@ export class CartController {
     }
 
     //add Pizza to cart
-    @Post("/addPizza")
+    @Post()
     addPizzaToCart(@Body() cartData:CartDto){
-        this.cartService.create(cartData);
+        console.log("post req cart========",cartData);
+       return  this.cartService.create(cartData);
+         
+    }
+
+    @Delete('/:userId')
+    deleteUserCart(@Param('userId') userId:number){
+        console.log("delete req cart========",userId);
+        return this.cartService.findAndDelete(userId);
+    }
+    @Delete()
+    deleteUserCartOne(@Query('userId') userId:number,@Query('cartId')cartId:number){
+        console.log("delete req cart========",userId,cartId);
+        return this.cartService.findAndDeleteOne(userId,cartId);
     }
 }

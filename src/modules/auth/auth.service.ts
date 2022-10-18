@@ -62,9 +62,11 @@ export class AuthService {
         const hash = await bcrypt.hash(password, 10);
         return hash;
     }
-
-    private async comparePassword(enteredPassword, dbPassword) {
+    public async comparePassword(enteredPassword, dbPassword) {
         const match = await bcrypt.compare(enteredPassword, dbPassword);
         return match;
     }
+
 }
+
+

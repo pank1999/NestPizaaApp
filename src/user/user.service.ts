@@ -3,6 +3,7 @@ import { User } from './user.entity';
 import { UserDto } from './dto/user.dto';
 import { USER_REPOSITORY } from '../core/constants/index';
 import {forwardRef} from "@nestjs/common";
+import * as bcrypt from 'bcrypt';
 
 interface LoginType{
     email:string,
@@ -13,6 +14,11 @@ interface LoginType{
 export class UserService {
 
     constructor(@Inject(forwardRef(() => USER_REPOSITORY)) private readonly userRepository: typeof User) { }
+
+    public async comparePassword(enteredPassword, dbPassword) {
+        const match = await bcrypt.compare(enteredPassword, dbPassword);
+        return match;
+    }
 
     async create(user: UserDto): Promise<User> {
         console.log("user service",user);
@@ -25,7 +31,8 @@ export class UserService {
     async findOneByEmail(loginData:LoginType){
         const userDB=await this.userRepository.findOne<User>({ where: { email:loginData.email } });
         if(userDB){
-            if(userDB.password===loginData.password){
+            //console.log("DB pass",userDB.password);
+            if(this.comparePassword(loginData.password,userDB.password)){
                 return userDB;
             }
             else{
