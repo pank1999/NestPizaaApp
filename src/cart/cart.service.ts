@@ -8,11 +8,9 @@ export class CartService {
     constructor(@Inject(forwardRef(() => CART_REPOSITORY)) private readonly cartRepository: typeof Cart) { }
 
     async create(cartData: CartDto): Promise<Cart> {
-        console.log(cartData);
         return await this.cartRepository.create<Cart>(cartData);
     }
     async findByUserId(userId: number): Promise<Cart[]> {
-        console.log(userId);
         return await this.cartRepository.findAll<Cart>({ where: { userId } });
     }
     async findAllIngredient(): Promise<Cart[]>{
