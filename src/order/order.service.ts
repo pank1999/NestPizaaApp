@@ -18,4 +18,8 @@ export class OrderService {
     async findAllIngredient(): Promise<Order[]>{
         return await this.orderRepository.findAll();   
     }
+    async findAndDeleteOrder(orderId:number,userId:number){
+        console.log("delete order fun called",orderId);
+         return await this.orderRepository.destroy({where:{id:orderId,userId}});
+    }
 }

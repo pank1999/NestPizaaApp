@@ -11,10 +11,17 @@ export class CartService {
         return await this.cartRepository.create<Cart>(cartData);
     }
     async findByUserId(userId: number): Promise<Cart[]> {
-        console.log(userId);
         return await this.cartRepository.findAll<Cart>({ where: { userId } });
     }
     async findAllIngredient(): Promise<Cart[]>{
         return await this.cartRepository.findAll();   
     }
+    async findAndDelete(userId:number){
+        return await this.cartRepository.destroy({where:{userId:userId}});
+    }
+
+    async findAndDeleteOne(userId:number,cartId:number){
+        return await this.cartRepository.destroy({where:{userId:userId,id:cartId}});
+    }
+
 }
